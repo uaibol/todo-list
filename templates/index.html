@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!---onclick="return confirm(' you want to delete?');" -->
+<div class="card" style="width: 24rem;">
+  <div class="card-body">
+    <h5 class="card-title">Todo List</h5>
+    <p class="card-text">
+      {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" data-bs-target="#my-alert" aria-label="Close"></button>
+          {{ message }}
+        </div>
+      {% endfor %}
+      {% endif %}
+      {% for post in posts %}
+        {{ post.title }}<a href="delete/{{ post.id }}" role="button"><i class="bi bi-x-square"></i></a><a href="update/{{ post.id }}"  role="button"><i class="bi bi-pencil-square"></i></a><br/>
+      {% endfor %}
+    </p>
+   
+  </div>
+  <div class="card-footer bg-transparent">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <input name="title" id="title" value="{% if title %}{{ title }}{% endif %}" autofocus>
+      <input type="submit"  value="Submit" class="btn btn-primary">
+    </form>
+  </div>
+
+</div>
+
+
+
+{% endblock %}
